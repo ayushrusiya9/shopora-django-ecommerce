@@ -9,7 +9,7 @@
     <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
         <div class="card-body">
             <h4 class="card-title mb-4">Sign Up</h4>
-            <form action="{% url 'register' %}" method="POST">
+            <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% include "base/alert.html" %}
 
@@ -26,6 +26,11 @@
                 <div class="form-group">
                     <input class="form-control" required placeholder="Password" name="password" type="password">
                 </div> <!-- form-group// -->
+                <div class="form-group">
+                   <input type="file" name="image" id="" class="form-control" required placeholder="image">
+                </div> <!-- form-group// -->
+
+                
 
 
                 <div class="form-group">

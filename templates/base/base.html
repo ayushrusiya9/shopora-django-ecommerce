@@ -62,7 +62,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-2 col-4">
                         <div class="brand-wrap">
-                            <img class="logo" src="{% static 'images/logo.png' %}" alt="Shopora Logo">
+                            <img class="logo" src="{% static 'images/shopora-logo.png' %}" alt="Shopora Logo">
                         </div>
                     </div>
 
@@ -94,8 +94,8 @@
                                 <div class="text">
                                     <span class="text-muted">Welcome!</span>
                                     <div>
-                                        <a href="#">Sign in</a> |
-                                        <a href="#">Register</a>
+                                        <a href="{% url 'login' %}">Sign in</a> |
+                                        <a href="{% url 'register' %}">Register</a>
                                     </div>
                                 </div>
                             </div>
