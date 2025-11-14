@@ -1,36 +1,118 @@
 {% extends "base/base.html" %}
-
 {% block start %}
 
-<div class="container mt-5 pt-5">
-    <div class="row">
+<style>
+    .category-chip {
+        padding: 8px 18px;
+        border-radius: 20px;
+        background: #fff;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.2s;
+        white-space: nowrap;
+    }
+
+    .category-chip:hover {
+        background: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+    }
+
+    .banner-box {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        padding: 40px;
+        border-radius: 15px;
+        color: #fff;
+    }
+
+    .product-card {
+        transition: 0.2s ease-in-out;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    a.rounded-pill:hover {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        transform: translateY(-2px);
+    }
+</style>
+
+
+
+<div class="container mt-4">
+
+    <!-- CATEGORY CHIPS -->
+    <div class="d-flex gap-2 flex-wrap mb-4">
+
+        {% for category in categories %}
+        <a href="" class="px-3 py-1 rounded-pill bg-white shadow-sm text-dark small"
+            style="text-decoration:none; border:1px solid #e5e5e5; transition:0.2s;">
+            {{ category.name }}
+        </a>
+        {% endfor %}
+
+        {% if not categories %}
+        <span class="text-muted">No categories yet.</span>
+        {% endif %}
+    </div>
+
+
+
+    <!-- ====================== SORTING BAR ====================== -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold mb-0">Products</h5>
+
+        <form method="GET" class="d-flex">
+            <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
+                <option value="">Sort by</option>
+                <option value="low">Price: Low to High</option>
+                <option value="high">Price: High to Low</option>
+                <option value="latest">Latest</option>
+            </select>
+        </form>
+    </div>
+
+
+
+    <!-- ====================== PRODUCT GRID ====================== -->
+    <div class="row g-4">
 
         {% for product in products %}
-        <div class="col-md-3 mb-4">
+        <div class="col-6 col-md-4 col-lg-3">
 
-            <figure class="card card-product-grid">
+            <div class="card border-0 shadow-sm h-100 product-card">
 
-                <div class="img-wrap">
-                    {% if product.images.all %}
-                        <img src="{{ product.images.first.image.url }}" class="img-fluid">
+                <div class="position-relative p-3 text-center">
+                    {% if product.images.first %}
+                    <img src="{{ product.images.first.image.url }}" class="img-fluid rounded"
+                        style="height: 200px; object-fit: cover;">
                     {% else %}
-                        <img src="" class="img-fluid">
+                    <img src="https://via.placeholder.com/300x300?text=No+Image" class="img-fluid rounded"
+                        style="height: 200px; object-fit: cover;">
                     {% endif %}
                 </div>
 
-                <figcaption class="info-wrap border-top">
-                    <a href="" class="title">
-                        <b>{{ product.name }}</b>
-                    </a>
-                    <div class="price mt-2">&#8377; {{ product.price }}</div>
-                </figcaption>
+                <div class="card-body text-center">
+                    <h6 class="mb-2">{{ product.name|truncatechars:20 }}</h6>
+                    <span class="fw-bold fs-5 text-primary">₹ {{ product.price }}</span>
+                </div>
 
-            </figure>
+                <div class="card-footer bg-white d-flex justify-content-between">
+                    <a href="#" class="btn btn-outline-primary btn-sm w-50 me-2">View</a>
+                    <a href="#" class="btn btn-primary btn-sm w-50">Add to Cart</a>
+                </div>
+
+            </div>
 
         </div>
         {% endfor %}
-
     </div>
+
 </div>
 
 {% endblock %}

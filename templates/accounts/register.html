@@ -1,50 +1,76 @@
 {% extends "base/base.html" %}
-
-
 {% block start %}
 
-<section class="section-conten padding-y" style="min-height:84vh">
+<section class="d-flex justify-content-center align-items-center py-5" style="min-height: 90vh;">
+    <div class="card shadow-lg border-0 p-4 p-md-5" 
+         style="max-width: 420px; width: 100%; border-radius: 15px;">
 
-    <!-- ============================ COMPONENT LOGIN   ================================= -->
-    <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
-        <div class="card-body">
-            <h4 class="card-title mb-4">Sign Up</h4>
-            <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% include "base/alert.html" %}
+        <h3 class="text-center fw-bold mb-4">Create Your Account</h3>
 
-                <div class="form-group">
-                    <input  class="form-control" required placeholder="First Name" name="first_name" type="text">
-                </div>
-                <div class="form-group">
-                    <input  class="form-control" required placeholder="Last Name" name="last_name" type="text">
-                </div>
+        <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% include "base/alert.html" %}
 
-                <div class="form-group">
-                    <input  class="form-control" required placeholder="Email" name="email" type="text">
-                </div> <!-- form-group// -->
-                <div class="form-group">
-                    <input class="form-control" required placeholder="Password" name="password" type="password">
-                </div> <!-- form-group// -->
-                <div class="form-group">
-                   <input type="file" name="image" id="" class="form-control" required placeholder="image">
-                </div> <!-- form-group// -->
+            <!-- FIRST NAME -->
+            <div class="mb-3">
+                <input class="form-control form-control-lg" 
+                       required 
+                       placeholder="First Name"
+                       name="first_name" 
+                       type="text">
+            </div>
 
-                
+            <!-- LAST NAME -->
+            <div class="mb-3">
+                <input class="form-control form-control-lg" 
+                       required 
+                       placeholder="Last Name"
+                       name="last_name" 
+                       type="text">
+            </div>
 
+            <!-- EMAIL -->
+            <div class="mb-3">
+                <input class="form-control form-control-lg" 
+                       required 
+                       placeholder="Email Address"
+                       name="email" 
+                       type="email">
+            </div>
 
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> Register </button>
-                </div> <!-- form-group// -->
-            </form>
-        </div> <!-- card-body.// -->
-    </div> <!-- card .// -->
+            <!-- PASSWORD -->
+            <div class="mb-3">
+                <input class="form-control form-control-lg" 
+                       required 
+                       placeholder="Password"
+                       name="password" 
+                       type="password">
+            </div>
 
-    <p class="text-center mt-4">Already have account? <a href="#">Sign in</a></p>
-    <br><br>
-    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+            <!-- IMAGE UPLOAD -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Upload Profile Photo</label>
+                <input class="form-control form-control-lg" 
+                       required 
+                       name="image"
+                       type="file">
+            </div>
 
+            <!-- SUBMIT -->
+            <button type="submit" 
+                    class="btn btn-primary btn-lg w-100 rounded-pill">
+                Sign Up
+            </button>
 
+        </form>
+
+        <!-- Sign In -->
+        <p class="text-center mt-3 mb-1">
+            Already have an account?
+            <a href="{% url 'login' %}" class="text-primary fw-semibold">Sign In</a>
+        </p>
+
+    </div>
 </section>
 
 {% endblock %}

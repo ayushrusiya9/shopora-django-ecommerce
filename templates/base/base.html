@@ -1,114 +1,164 @@
 {% load static %}
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopora - Modern E-Commerce</title>
 
-    <title>Shopora - A E-Commerce Website</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <!-- jQuery -->
-    <script src="{% static 'js/jquery-2.0.0.min.js' %}" type="text/javascript"></script>
-
-    <!-- Bootstrap 4 files -->
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}" type="text/javascript"></script>
-    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" />
-
-    <!-- Font Awesome 5 -->
-    <link href="{% static 'fonts/fontawesome/css/all.min.css' %}" rel="stylesheet" type="text/css" />
-
-    <!-- Custom styles -->
-    <link href="{% static 'css/ui.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css" />
-
-    <!-- Custom javascript -->
-    <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // custom jQuery code if needed
-        });
-    </script>
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <header class="section-header">
 
-        <nav class="navbar navbar-dark navbar-expand p-0 bg-dark">
-            <div class="container">
-                <ul class="navbar-nav d-none d-md-flex mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Delivery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Payment</a></li>
-                </ul>
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="#" class="nav-link"> Call: +91-9301729541 </a></li>
+    <!-- ====================== TOP BAR ====================== -->
+    <div class="bg-dark text-light py-2 small">
+        <div class="container">
+            <div class="row text-center text-md-start">
+
+                <!-- Left Links -->
+                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start gap-3 mb-2 mb-md-0">
+                    <a href="#" class="text-light text-decoration-none">Delivery</a>
+                    <a href="#" class="text-light text-decoration-none">Payment</a>
+                </div>
+
+                <!-- Right Info -->
+                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end gap-3">
+                    <span><i class="fa fa-phone"></i> +91-9301729541</span>
+                    <span><i class="fa fa-globe"></i> English</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- ====================== MAIN NAVBAR ====================== -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 sticky-top">
+        <div class="container">
+
+            <!-- BRAND -->
+            <a class="navbar-brand fw-bold fs-3 d-flex align-items-center" href="#">
+                <img src="{% static 'images/shopora-logo.png' %}" height="45" alt="Shopora">
+            </a>
+
+            <!-- TOGGLER -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+
+            <div class="collapse navbar-collapse" id="mainNav">
+
+                <!-- SEARCH BAR -->
+                <form class="d-flex mx-auto w-50"> 
+                    <input class="form-control rounded-start-pill px-3" type="search"
+                        placeholder="Search for products..."> 
+                        <button class="btn btn-primary rounded-end-pill px-4"
+                        type="submit"> <i class="fa fa-search"></i> 
+                    </button> 
+                </form>
+
+
+
+                <!-- ICONS -->
+                <ul class="navbar-nav ms-auto align-items-center mt-3 mt-lg-0">
+
+                    <!-- CART -->
+                    <li class="nav-item me-3">
+                        <a href="#" class="nav-link position-relative">
+                            <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                            <span
+                                class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle p-1 small">0</span>
+                        </a>
+                    </li>
+
+                    <!-- USER DROPDOWN -->
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> English </a>
-                        <ul class="dropdown-menu dropdown-menu-right" style="max-width: 100px;">
-                            <li><a class="dropdown-item" href="#">Hindi</a></li>
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="fa-regular fa-user fa-lg"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'login' %}">Sign In</a></li>
+                            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
                         </ul>
                     </li>
+
                 </ul>
+
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <section class="header-main border-bottom">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-2 col-4">
-                        <div class="brand-wrap">
-                            <img class="logo" src="{% static 'images/shopora-logo.png' %}" alt="Shopora Logo">
-                        </div>
-                    </div>
 
-                    <div class="col-lg-6 col-sm-12">
-                        <form action="#" class="search">
-                            <div class="input-group w-100">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="submit">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
 
-                    <div class="col-lg-4 col-sm-6 col-8">
-                        <div class="widgets-wrap float-md-right">
-                            <div class="widget-header mr-3">
-                                <a href="#" class="icon icon-sm rounded-circle border">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </a>
-                                <span class="badge badge-pill badge-danger notify">0</span>
-                            </div>
-                            <div class="widget-header icontext">
-                                <a href="#" class="icon icon-sm rounded-circle border">
-                                    <i class="fa fa-user"></i>
-                                </a>
-                                <div class="text">
-                                    <span class="text-muted">Welcome!</span>
-                                    <div>
-                                        <a href="{% url 'login' %}">Sign in</a> |
-                                        <a href="{% url 'register' %}">Register</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- ====================== PAGE CONTENT ====================== -->
+    <main class="mt-4">
+        {% block start %}{% endblock %}
+    </main>
+
+
+
+    <!-- ====================== FOOTER ====================== -->
+    <footer class="bg-dark text-light pt-5 pb-3 mt-5">
+        <div class="container">
+
+            <div class="row text-center text-md-start">
+
+                <!-- Brand -->
+                <div class="col-md-4 mb-4">
+                    <h4 class="fw-bold">Shopora</h4>
+                    <p class="mb-2">Your trusted Django-based e-commerce store.</p>
+                    <p class="small">Fast • Secure • Reliable</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-md-3 mb-4">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none d-block mb-1">Home</a></li>
+                        <li><a href="#" class="text-light text-decoration-none d-block mb-1">Shop</a></li>
+                        <li><a href="#" class="text-light text-decoration-none d-block mb-1">Login</a></li>
+                        <li><a href="#" class="text-light text-decoration-none d-block">Register</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-5 mb-4">
+                    <h6 class="fw-bold mb-3">Contact Us</h6>
+                    <p class="mb-1">support@shopora.com</p>
+                    <p class="mb-3">+91 98765 43210</p>
+
+                    <div class="d-flex justify-content-center justify-content-md-start gap-3 fs-4">
+                        <a href="#" class="text-light"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
-            </div>
-        </section>
-    </header>
 
-    {% block start %}
-    
-    {% endblock %}
+            </div>
+
+            <!-- bottom bar -->
+            <div class="text-center border-top pt-3 mt-3 text-light small">
+                © 2025 Shopora — All rights reserved.
+            </div>
+
+        </div>
+    </footer>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
