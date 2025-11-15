@@ -17,6 +17,7 @@ def login_page(request):
 
             return HttpResponseRedirect(request.path_info)
         else:
+            request.session['id'] = user_obj.id
             return redirect('home')
     return render(request, 'accounts/login.html')
 
@@ -48,3 +49,6 @@ def register_page(request):
 
     return render(request, 'accounts/register.html')
 
+def logout(request):
+    request.session.flush()
+    return redirect('home')

@@ -99,11 +99,11 @@
 
                 <div class="card-body text-center">
                     <h6 class="mb-2">{{ product.name|truncatechars:20 }}</h6>
-                    <span class="fw-bold fs-5 text-primary">₹ {{ product.price }}</span>
+                    <span class="fw-bold fs-5">₹ {{ product.price }}</span>
                 </div>
 
                 <div class="card-footer bg-white d-flex justify-content-between">
-                    <a href="#" class="btn btn-outline-primary btn-sm w-50 me-2">View</a>
+                    <a href="{% url 'view_product' pk=product.uid %}" class="btn btn-outline-primary btn-sm w-50 me-2">View</a>
                     <a href="#" class="btn btn-primary btn-sm w-50">Add to Cart</a>
                 </div>
 
