@@ -3,24 +3,10 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from accounts.models import Profile
 from django.http import HttpResponseRedirect
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
-def login_page(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-
-        print(email,password)
-        user_obj = User.objects.filter(email=email).first()
-        if not user_obj:
-            messages.warning(request, 'user not found')
-
-            return HttpResponseRedirect(request.path_info)
-        else:
-            request.session['id'] = user_obj.id
-            return redirect('home')
-    return render(request, 'accounts/login.html')
-
 def register_page(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
@@ -49,6 +35,22 @@ def register_page(request):
 
     return render(request, 'accounts/register.html')
 
+def login_page(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = authenticate(username=email, password=password)
+        if user is None:
+            messages.warning(request, 'Invalid credentials')
+            return redirect('login')
+
+        login(request, user)   # for login 
+
+        return redirect('home')
+
+    return render(request, 'accounts/login.html')
+
 def logout(request):
-    request.session.flush()
+    auth_logout(request)
     return redirect('home')

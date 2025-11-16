@@ -1,0 +1,124 @@
+{% extends "base/base.html" %}
+{% block start %}
+
+<style>
+    .cart-item-card {
+        transition: 0.2s;
+        border-radius: 12px;
+    }
+    .cart-item-card:hover {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        transform: translateY(-3px);
+    }
+    .item-img {
+        width: 100%;
+        max-width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container py-5">
+
+    <!-- HEADING -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold">Your Cart</h3>
+        <a href="{% url 'home' %}" class="btn btn-outline-primary btn-sm">Continue Shopping</a>
+    </div>
+
+    <!-- IF EMPTY -->
+    {% if cart_items|length == 0 %}
+        <div class="text-center py-5">
+            <h5 class="text-muted mb-3">Your cart is empty</h5>
+            <a href="{% url 'home' %}" class="btn btn-primary">Shop Now</a>
+        </div>
+    {% endif %}
+
+    <div class="row">
+
+        <!-- LEFT: CART ITEMS -->
+        <div class="col-lg-8">
+
+            {% for item in cart_items %}
+            <div class="card cart-item-card border-0 mb-3 p-3">
+
+                <div class="row g-3">
+
+                    <!-- IMAGE -->
+                    <div class="col-4 col-md-3 text-center">
+                        <img src="{{ item.product.images.first.image.url }}"
+                             class="item-img">
+                    </div>
+
+                    <!-- PRODUCT DETAILS -->
+                    <div class="col-8 col-md-6">
+
+                        <h6 class="fw-bold mb-1">{{ item.product.name }}</h6>
+                        <p class="text-muted small mb-1">{{ item.product.category.name }}</p>
+                        <p class="fw-bold text-primary fs-5 mb-0">₹ {{ item.product.price }}</p>
+
+                    </div>
+
+                    <!-- ACTIONS -->
+                    <div class="col-12 col-md-3 text-center text-md-end">
+
+                        <div class="d-flex justify-content-center justify-content-md-end gap-2 mb-2">
+
+                            <!-- decrease -->
+                            <a href="{% url 'decrease_qty' item.id %}"
+                               class="btn btn-outline-secondary btn-sm px-2">-</a>
+
+                            <span class="fw-bold px-2">{{ item.quantity }}</span>
+
+                            <!-- increase -->
+                            <a href="{% url 'increase_qty' item.id %}"
+                               class="btn btn-outline-secondary btn-sm px-2">+</a>
+
+                        </div>
+
+                        <a href="{% url 'remove_item' item.id %}"
+                           class="btn btn-danger btn-sm w-100">Remove</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- RIGHT: ORDER SUMMARY -->
+        <div class="col-lg-4">
+
+            <div class="card shadow-sm p-4">
+                <h5 class="fw-bold mb-3">Order Summary</h5>
+
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal</span>
+                    <span class="fw-bold">₹ {{ subtotal }}</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Delivery</span>
+                    <span class="fw-bold">Free</span>
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-between mb-3 fs-5 fw-bold">
+                    <span>Total</span>
+                    <span>₹ {{ subtotal }}</span>
+                </div>
+
+                <a href="#" class="btn btn-primary w-100 btn-lg">Checkout</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

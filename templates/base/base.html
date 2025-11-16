@@ -36,12 +36,11 @@
             <div class="collapse navbar-collapse" id="mainNav">
 
                 <!-- SEARCH BAR -->
-                <form class="d-flex mx-auto w-50"> 
+                <form class="d-flex mx-auto w-50">
                     <input class="form-control rounded-start-pill px-3" type="search"
-                        placeholder="Search for products..."> 
-                        <button class="btn btn-primary rounded-end-pill px-4"
-                        type="submit"> <i class="fa fa-search"></i> 
-                    </button> 
+                        placeholder="Search for products...">
+                    <button class="btn btn-primary rounded-end-pill px-4" type="submit"> <i class="fa fa-search"></i>
+                    </button>
                 </form>
 
 
@@ -51,7 +50,7 @@
 
                     <!-- CART -->
                     <li class="nav-item me-3">
-                        <a href="#" class="nav-link position-relative">
+                        <a href="{% url 'cart_item' %}" class="nav-link position-relative">
                             <i class="fa-solid fa-cart-shopping fa-lg"></i>
                             <span
                                 class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle p-1 small">0</span>
@@ -64,12 +63,13 @@
                             <i class="fa-regular fa-user fa-lg"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            {% if not get_user %}
+                            {% if request.user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                            {% else %}
                             <li><a class="dropdown-item" href="{% url 'login' %}">Sign In</a></li>
                             <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
-                            {% else %}
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
                             {% endif %}
+
                         </ul>
                     </li>
 
