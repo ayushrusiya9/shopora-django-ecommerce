@@ -27,8 +27,6 @@ def cart_item(request):
 
     return render(request, 'product/cart_item.html', context)
 
-
-
 def add_to_cart(request,pk):
     product = Product.objects.get(uid=pk)
 
@@ -50,3 +48,4 @@ def add_to_cart(request,pk):
         CartItem.objects.create(cart=cart, product=product, quantity=1)
     
     return redirect('cart_item')
+    # return redirect(request.META.get('HTTP_REFERER', 'home'))
