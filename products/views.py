@@ -32,23 +32,23 @@ def cart_item(request):
 
 def add_to_cart(request,pk):
 
-    product = Product.objects.get(id=pk)
+    product = Product.objects.get(uid=pk)
 
-    cart = Cart.objects.get(user=request.user)
+    if not request.user.is_authenticated:
+        return redirect('login')  
+
+    # always return single object
+    cart = Cart.objects.filter(user=request.user).first()
 
     if not cart:
-        cart = Cart(request.user)
-        cart.save()
+        cart = Cart.objects.create(user=request.user)
 
-    cart_item = CartItem.objects.get(cart=cart,product=product)
+    cart_item = CartItem.objects.filter(cart=cart, product=product).first()
 
     if cart_item:
         cart_item.quantity += 1
         cart_item.save()
     else:
-        cart_item = CartItem.objects.create(
-            cart=cart,
-            product=product
-        )
+        CartItem.objects.create(cart=cart, product=product, quantity=1)
     
     return redirect('cart_item')
