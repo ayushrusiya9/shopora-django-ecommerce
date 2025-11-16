@@ -3,7 +3,6 @@ from .models import Product,Cart,CartItem
 
 # Create your views here.
 def cart_item(request):
-
     # user login check
     if not request.user.is_authenticated:
         return redirect('login')
@@ -31,7 +30,6 @@ def cart_item(request):
 
 
 def add_to_cart(request,pk):
-
     product = Product.objects.get(uid=pk)
 
     if not request.user.is_authenticated:

@@ -36,24 +36,22 @@
             <div class="collapse navbar-collapse" id="mainNav">
 
                 <!-- SEARCH BAR -->
-                <form class="d-flex mx-auto w-50">
-                    <input class="form-control rounded-start-pill px-3" type="search"
+                <form action="" method="get" class="d-flex mx-lg-auto mt-3 mt-lg-0 w-100 w-lg-50">
+                    <input class="form-control rounded-start-pill px-3" type="search" name="search"
                         placeholder="Search for products...">
-                    <button class="btn btn-primary rounded-end-pill px-4" type="submit"> <i class="fa fa-search"></i>
+                    <button class="btn btn-primary rounded-end-pill px-4" type="submit"> 
+                        <i class="fa fa-search"></i>
                     </button>
                 </form>
 
-
-
                 <!-- ICONS -->
-                <ul class="navbar-nav ms-auto align-items-center mt-3 mt-lg-0">
+                <ul class="navbar-nav ms-lg-auto align-items-center mt-3 mt-lg-0">
 
                     <!-- CART -->
-                    <li class="nav-item me-3">
+                    <li class="nav-item me-lg-3 mb-2 mb-lg-0">
                         <a href="{% url 'cart_item' %}" class="nav-link position-relative">
                             <i class="fa-solid fa-cart-shopping fa-lg"></i>
-                            <span
-                                class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle p-1 small">0</span>
+                            <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle p-1 small">0</span>
                         </a>
                     </li>
 
@@ -64,12 +62,11 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             {% if request.user.is_authenticated %}
-                            <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                                <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
                             {% else %}
-                            <li><a class="dropdown-item" href="{% url 'login' %}">Sign In</a></li>
-                            <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+                                <li><a class="dropdown-item" href="{% url 'login' %}">Sign In</a></li>
+                                <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
                             {% endif %}
-
                         </ul>
                     </li>
 
@@ -80,29 +77,27 @@
     </nav>
 
 
-
     <!-- ====================== PAGE CONTENT ====================== -->
     <main class="mt-4">
         {% block start %}{% endblock %}
     </main>
 
 
-
     <!-- ====================== FOOTER ====================== -->
     <footer class="bg-dark text-light pt-5 pb-3 mt-5">
         <div class="container">
 
-            <div class="row text-center text-md-start">
+            <div class="row text-center text-md-start gy-4">
 
                 <!-- Brand -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4">
                     <h4 class="fw-bold">Shopora</h4>
                     <p class="mb-2">Your trusted Django-based e-commerce store.</p>
                     <p class="small">Fast • Secure • Reliable</p>
                 </div>
 
                 <!-- Quick Links -->
-                <div class="col-md-3 mb-4">
+                <div class="col-md-3">
                     <h6 class="fw-bold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-light text-decoration-none d-block mb-1">Home</a></li>
@@ -113,7 +108,7 @@
                 </div>
 
                 <!-- Contact -->
-                <div class="col-md-5 mb-4">
+                <div class="col-md-5">
                     <h6 class="fw-bold mb-3">Contact Us</h6>
                     <p class="mb-1">support@shopora.com</p>
                     <p class="mb-3">+91 98765 43210</p>
@@ -127,14 +122,12 @@
 
             </div>
 
-            <!-- bottom bar -->
             <div class="text-center border-top pt-3 mt-3 text-light small">
                 © 2025 Shopora — All rights reserved.
             </div>
 
         </div>
     </footer>
-
 
 
     <!-- Bootstrap JS -->

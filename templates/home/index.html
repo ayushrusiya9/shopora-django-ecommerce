@@ -14,16 +14,8 @@
     }
 
     .category-chip:hover {
-        background: #0d6efd;
         color: white;
         border-color: #0d6efd;
-    }
-
-    .banner-box {
-        background: linear-gradient(135deg, #0d6efd, #6610f2);
-        padding: 40px;
-        border-radius: 15px;
-        color: #fff;
     }
 
     .product-card {
@@ -35,24 +27,29 @@
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
 
-    a.rounded-pill:hover {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-        transform: translateY(-2px);
+    /* --- MOBILE FIX: image scaling perfect --- */
+    .product-img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    @media (max-width: 576px) {
+        .product-img {
+            height: 220px !important;
+        }
     }
 </style>
-
 
 
 <div class="container mt-4">
 
     <!-- CATEGORY CHIPS -->
     <div class="d-flex gap-2 flex-wrap mb-4">
-
         {% for category in categories %}
-        <a href="{% url 'category_product' pk=category.uid %}"
-            class="px-3 py-1 rounded-pill bg-white shadow-sm text-dark small"
-            style="text-decoration:none; border:1px solid #e5e5e5; transition:0.2s;">
+        <a href="{% url 'category_product' pk=category.uid %}" class="category-chip text-dark"
+            style="text-decoration:none;">
             {{ category.name }}
         </a>
         {% endfor %}
@@ -61,53 +58,64 @@
         <span class="text-muted">No categories yet.</span>
         {% endif %}
 
-        <!-- all product -->
-        <a href="{% url 'home' %}" class="px-3 py-1 rounded-pill bg-white shadow-sm text-dark small"
-            style="text-decoration:none; border:1px solid #e5e5e5; transition:0.2s;">
+        <a href="{% url 'home' %}" class="category-chip text-dark" style="text-decoration:none;">
             All
         </a>
     </div>
 
 
+    <!-- SEARCH RESULT MESSAGE -->
+    {% if search %}
+        {% if products %}
+        <h6 class="mb-3">Search results for: <strong>{{ search }}</strong></h6>
+        {% else %}
+        <div class="alert alert-warning text-center mt-4">
+            No products found for "<strong>{{search}}</strong>"
+        </div>
+        {% endif %}
+    {% endif %}
 
-    <!-- ====================== SORTING BAR ====================== -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="fw-bold mb-0">Products</h5>
 
-        <form method="get" action="">
-            <div class="d-flex gap-2">
 
-                <select name="sort" class="form-select form-select-sm">
-                    <option value="">Sort by</option>
-                    <option value="low">Price: Low to High</option>
-                    <option value="high">Price: High to Low</option>
-                    <option value="latest">Latest</option>
-                </select>
+    <!-- SORTING BAR -->
+    <div class="row align-items-center mb-3 gy-2">
+        <div class="col-12 col-md-6">
+            <h5 class="fw-bold mb-0">Products</h5>
+        </div>
 
-                <button type="submit" class="btn btn-primary btn-sm">Apply</button>
+        <div class="col-12 col-md-6">
+            <form method="get" action="">
+                <div class="d-flex gap-2">
+                    <select name="sort" class="form-select form-select-sm">
+                        <option value="">Sort by</option>
+                        <option value="low">Price: Low to High</option>
+                        <option value="high">Price: High to Low</option>
+                        <option value="latest">Latest</option>
+                    </select>
 
-            </div>
-        </form>
-
+                    <button type="submit" class="btn btn-primary btn-sm">Apply</button>
+                </div>
+            </form>
+        </div>
     </div>
 
 
-
-    <!-- ====================== PRODUCT GRID ====================== -->
-    <div class="row g-4">
+    <!-- PRODUCT GRID -->
+    <div class="row g-3 g-md-4">
 
         {% for product in products %}
-        <div class="col-6 col-md-4 col-lg-3">
+        <!-- FULLY RESPONSIVE COLUMN FIX -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
 
             <div class="card border-0 shadow-sm h-100 product-card">
 
-                <div class="position-relative p-3 text-center">
+                <div class="position-relative p-2 p-md-3 text-center">
                     {% if product.images.first %}
-                    <img src="{{ product.images.first.image.url }}" class="img-fluid rounded"
-                        style="height: 200px; object-fit: cover;">
+                    <img src="{{ product.images.first.image.url }}" 
+                         class="img-fluid product-img">
                     {% else %}
-                    <img src="https://via.placeholder.com/300x300?text=No+Image" class="img-fluid rounded"
-                        style="height: 200px; object-fit: cover;">
+                    <img src="https://via.placeholder.com/300x300?text=No+Image"
+                         class="img-fluid product-img">
                     {% endif %}
                 </div>
 
@@ -119,7 +127,9 @@
                 <div class="card-footer bg-white d-flex justify-content-between">
                     <a href="{% url 'view_product' pk=product.uid %}"
                         class="btn btn-outline-primary btn-sm w-50 me-2">View</a>
-                    <a href="{% url 'add_to_cart' pk=product.uid %}" class="btn btn-primary btn-sm w-50">Add to Cart</a>
+
+                    <a href="{% url 'add_to_cart' pk=product.uid %}" 
+                       class="btn btn-primary btn-sm w-50">Add</a>
                 </div>
 
             </div>
