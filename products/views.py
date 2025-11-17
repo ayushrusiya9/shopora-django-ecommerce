@@ -1,4 +1,8 @@
-from django.shortcuts import render,redirect
+import razorpay
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .models import Product,Cart,CartItem
 
 # Create your views here.
@@ -49,3 +53,71 @@ def add_to_cart(request,pk):
     
     return redirect('cart_item')
     # return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+
+# razorpay create order
+def create_order(request):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    # Get cart
+    cart = Cart.objects.filter(user=request.user).first()
+    if not cart:
+        return redirect('cart_item')
+
+    cart_items = CartItem.objects.filter(cart=cart)
+    subtotal = sum([item.product.price * item.quantity for item in cart_items])
+
+    if subtotal <= 0:
+        return redirect('cart_item')
+
+    # Razorpay amount in paisa
+    amount = int(subtotal * 100)
+
+    client = razorpay.Client(
+        auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
+    )
+    print("key: ",settings.RAZORPAY_KEY_ID)
+
+    order = client.order.create({
+        "amount": amount,
+        "currency": "INR",
+        "payment_capture": 1
+    })
+
+    return render(request, "product/checkout.html", {
+        "order": order,
+        "cart_items": cart_items,
+        "subtotal": subtotal,
+        "razorpay_key": settings.RAZORPAY_KEY_ID
+    })
+
+@csrf_exempt
+def payment_status(request):
+    import json
+    data = json.loads(request.body)
+
+    client = razorpay.Client(
+        auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
+    )
+    print("paymnt order id:",data["razorpay_order_id"])
+    print(" payment id:",data["razorpay_payment_id"])
+    print(" signature: :",data["razorpay_signature"])
+    try:
+        client.utility.verify_payment_signature({
+            "razorpay_order_id": data["razorpay_order_id"],
+            "razorpay_payment_id": data["razorpay_payment_id"],
+            "razorpay_signature": data["razorpay_signature"]
+        })
+
+        return JsonResponse({"status":True})
+
+    except:
+        return JsonResponse({"status": False})
+
+
+def success(request):
+    status = request.GET.get("status")
+    print(status)
+    return render(request,'product/success.html',{"status":status})
