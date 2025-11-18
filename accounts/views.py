@@ -13,7 +13,6 @@ def register_page(request):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        profile_image = request.FILES.get('image')
 
         if User.objects.filter(username=email).exists():
             messages.warning(request, 'Email is already registered!')
@@ -28,7 +27,6 @@ def register_page(request):
             password=password
         )
 
-        Profile.objects.create(user=user_obj, profile_image=profile_image)
 
         messages.success(request, 'Account created successfully!')
         return HttpResponseRedirect('/account/login/')  # redirect to login page

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from .models import Product,Cart,CartItem
+from .models import Product,Cart,CartItem,Order,OrderItem
 
 # Create your views here.
 def cart_item(request):
@@ -101,23 +101,78 @@ def payment_status(request):
     client = razorpay.Client(
         auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
     )
-    print("paymnt order id:",data["razorpay_order_id"])
-    print(" payment id:",data["razorpay_payment_id"])
-    print(" signature: :",data["razorpay_signature"])
+
     try:
+        # Verify signature
         client.utility.verify_payment_signature({
             "razorpay_order_id": data["razorpay_order_id"],
             "razorpay_payment_id": data["razorpay_payment_id"],
             "razorpay_signature": data["razorpay_signature"]
         })
 
-        return JsonResponse({"status":True})
+        # Get user's cart
+        cart = Cart.objects.filter(user=request.user).first()
+        if not cart:
+            return JsonResponse({"status": False})
 
-    except:
+        subtotal = sum([item.product.price * item.quantity for item in CartItem.objects.filter(cart=cart)])
+
+        # Create ORDER in Django
+        order = Order.objects.create(
+            user=request.user,
+            razorpay_order_id=data["razorpay_order_id"],
+            razorpay_payment_id=data["razorpay_payment_id"],
+            amount=subtotal,
+            status="Paid"
+        )
+
+        # Create OrderItems
+        for item in CartItem.objects.filter(cart=cart):
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+
+        # Clear cart
+        CartItem.objects.filter(cart=cart).delete()
+
+        return JsonResponse({
+            "status": True,
+            "order_id": order.uid
+        })
+
+    except Exception as e:
+        print("Payment Error:", e)
         return JsonResponse({"status": False})
 
-
+# Success page
+import json
 def success(request):
-    status = request.GET.get("status")
-    print(status)
-    return render(request,'product/success.html',{"status":status})
+    order_id = request.GET.get("order_id")
+    status = json.loads(request.GET.get('status'))
+    order = Order.objects.get(uid=order_id)
+    return render(request, 'product/success.html', {"order": order,"status":status})
+
+
+from .utils import render_to_pdf
+# Invoice download
+def download_invoice(request, order_id):
+    order = Order.objects.get(uid=order_id)
+    qs_items = OrderItem.objects.filter(order=order)
+
+    order_items = []
+    total_sum = 0.0
+    for it in qs_items:
+        price = float(it.price)              # Decimal -> float
+        qty = int(it.quantity)
+        line_total = price * qty
+        total_sum += line_total
+        order_items.append({
+            "product_name": it.product.name,
+            "quantity": qty,
+            "price": price,
+            "total": line_total
+        })
+    return render_to_pdf('product/invoice.html', {'order': order, 'order_items': order_items,"cumpute_total":total_sum})

@@ -83,6 +83,7 @@
 
 </div>
 
+
 <script>
     var options = {
         "key": "{{ razorpay_key }}",
@@ -91,20 +92,30 @@
         "name": "Your Shop Name",
         "description": "Order Payment",
         "order_id": "{{ order.id }}",
+
         "handler": function (response) {
             fetch("/products/payment-status/", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
                     razorpay_payment_id: response.razorpay_payment_id,
                     razorpay_order_id: response.razorpay_order_id,
                     razorpay_signature: response.razorpay_signature
                 })
-            }).then(res => window.location.href = "/products/success/?status=" + res.status);
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === true) {
+                    window.location.href = `/products/success/?order_id=${data.order_id}&status=${data.status}`;
+                } else {
+                    alert("Payment Failed!");
+                }
+            });
         },
-        "theme": {
-            "color": "#528FF0"
-        }
+
+        "theme": { "color": "#528FF0" }
     };
 
     var rzp1 = new Razorpay(options);
@@ -114,5 +125,6 @@
         e.preventDefault();
     };
 </script>
+
 
 {% endblock %}

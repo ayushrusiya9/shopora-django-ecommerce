@@ -9,4 +9,5 @@ urlpatterns = [
     # path('pay/', views.p, name="payment"),
     path('payment-status/',views.payment_status,name='payment-status'),
     path('success/',views.success,name='success'),
+    path('download_invoice/<slug:order_id>/',views.download_invoice,name='download_invoice'),
 ]
