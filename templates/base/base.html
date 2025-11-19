@@ -18,8 +18,8 @@
 
 <body class="bg-light">
 
-    <!-- ====================== MAIN NAVBAR ====================== -->
-    <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 sticky-top">
+    <!-- ====================== NAVBAR ====================== -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm py-3 sticky-top navbar-light">
         <div class="container">
 
             <!-- BRAND -->
@@ -32,12 +32,14 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Right aligned content -->
-            <div class="collapse navbar-collapse" id="mainNav">
-                <div
-                    class="ms-auto d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-2 gap-lg-3">
+            <!-- NAV CONTENT -->
+            <div class="collapse navbar-collapse mt-3 mt-lg-0" id="mainNav">
 
-                    <!-- SEARCH FORM -->
+                <div class="ms-auto d-flex flex-column flex-lg-row 
+                            align-items-center align-items-lg-center 
+                            w-100 gap-3 text-center text-lg-start">
+
+                    <!-- SEARCH BAR -->
                     <form action="" method="get" class="d-flex w-100 w-lg-auto">
                         <input class="form-control rounded-start-pill px-3" type="search" name="search"
                             placeholder="Search for products...">
@@ -47,7 +49,7 @@
                     </form>
 
                     <!-- CART ICON -->
-                    <div class="nav-item position-relative me-3">
+                    <div class="nav-item position-relative">
                         <a href="{% url 'cart_item' %}" class="nav-link p-0">
                             <i class="fa-solid fa-cart-shopping fa-lg"></i>
                             <span
@@ -59,10 +61,10 @@
 
                     <!-- USER DROPDOWN -->
                     <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                        <a class="nav-link dropdown-toggle d-flex justify-content-center align-items-center" href="#"
                             data-bs-toggle="dropdown">
                             <i class="fa-regular fa-user fa-lg"></i>
-                            <span class="ms-1 d-none d-lg-inline">Account</span> <!-- optional text like Flipkart -->
+                            <span class="ms-1 d-none d-lg-inline">Account</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             {% if request.user.is_authenticated %}
@@ -74,9 +76,9 @@
                         </ul>
                     </div>
 
-
                 </div>
             </div>
+
         </div>
     </nav>
 
@@ -89,32 +91,32 @@
     <footer class="bg-dark text-light pt-5 pb-3 mt-5">
         <div class="container">
 
-            <div class="row text-center text-md-start gy-4">
+            <div class="row gy-4 text-center text-md-start">
 
                 <!-- Brand -->
-                <div class="col-md-4 d-flex flex-column align-items-center align-items-md-start gap-2 gap-md-3">
-                    <img src="{% static 'images/shopora-logo.png' %}" height="45" alt="Shopora">
-                    <div>
-                        <!-- <h4 class="fw-bold mb-0">Shopora</h4> -->
-                        <p class="mb-2">Your trusted Django-based e-commerce store.</p>
-                        <p class="small mb-0">Fast • Secure • Reliable</p>
-                    </div>
+                <div class="col-12 col-md-4 d-flex flex-column align-items-center align-items-md-start">
+                    <img src="{% static 'images/shopora-logo.png' %}" height="45" alt="Shopora" class="mb-2">
+                    <p class="mb-1">Your trusted Django-based e-commerce store.</p>
+                    <p class="small mb-0">Fast • Secure • Reliable</p>
                 </div>
 
-
                 <!-- Quick Links -->
-                <div class="col-md-3">
+                <div class="col-12 col-md-3">
                     <h6 class="fw-bold mb-3">Quick Links</h6>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-light text-decoration-none d-block mb-1">Home</a></li>
-                        <li><a href="#" class="text-light text-decoration-none d-block mb-1">Shop</a></li>
-                        <li><a href="#" class="text-light text-decoration-none d-block mb-1">Login</a></li>
-                        <li><a href="#" class="text-light text-decoration-none d-block">Register</a></li>
+                        <li><a href="{% url 'home' %}" class="text-light d-block py-1 text-decoration-none">Home</a>
+                        </li>
+                        <li><a href="{% url 'home' %}" class="text-light d-block py-1 text-decoration-none">Shop</a>
+                        </li>
+                        <li><a href="{% url 'login' %}" class="text-light d-block py-1 text-decoration-none">Login</a>
+                        </li>
+                        <li><a href="{% url 'register' %}"
+                                class="text-light d-block py-1 text-decoration-none">Register</a></li>
                     </ul>
                 </div>
 
                 <!-- Contact -->
-                <div class="col-md-5">
+                <div class="col-12 col-md-5">
                     <h6 class="fw-bold mb-3">Contact Us</h6>
                     <p class="mb-1">support@shopora.com</p>
                     <p class="mb-3">+91 98765 43210</p>
@@ -128,12 +130,14 @@
 
             </div>
 
+            <!-- bottom line -->
             <div class="text-center border-top pt-3 mt-3 text-light small">
                 © 2025 Shopora — All rights reserved.
             </div>
 
         </div>
     </footer>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

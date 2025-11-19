@@ -66,13 +66,13 @@
 
     <!-- SEARCH RESULT MESSAGE -->
     {% if search %}
-        {% if products %}
-        <h6 class="mb-3">Search results for: <strong>{{ search }}</strong></h6>
-        {% else %}
-        <div class="alert alert-warning text-center mt-4">
-            No products found for "<strong>{{search}}</strong>"
-        </div>
-        {% endif %}
+    {% if products %}
+    <h6 class="mb-3">Search results for: <strong>{{ search }}</strong></h6>
+    {% else %}
+    <div class="alert alert-warning text-center mt-4">
+        No products found for "<strong>{{search}}</strong>"
+    </div>
+    {% endif %}
     {% endif %}
 
 
@@ -83,7 +83,7 @@
             <h5 class="fw-bold mb-0">Products</h5>
         </div>
 
-        <div class="col-12 col-md-6" >
+        <div class="col-12 col-md-6">
             <form method="get" action="">
                 <div class="d-flex gap-2">
                     <select name="sort" class="form-select form-select-sm">
@@ -111,11 +111,9 @@
 
                 <div class="position-relative p-2 p-md-3 text-center">
                     {% if product.images.first %}
-                    <img src="{{ product.images.first.image.url }}" 
-                         class="img-fluid product-img">
+                    <img src="{{ product.images.first.image.url }}" class="img-fluid product-img">
                     {% else %}
-                    <img src="https://via.placeholder.com/300x300?text=No+Image"
-                         class="img-fluid product-img">
+                    <img src="https://via.placeholder.com/300x300?text=No+Image" class="img-fluid product-img">
                     {% endif %}
                 </div>
 
@@ -128,8 +126,7 @@
                     <a href="{% url 'view_product' pk=product.uid %}"
                         class="btn btn-outline-primary btn-sm w-50 me-2">View</a>
 
-                    <a href="{% url 'add_to_cart' pk=product.uid %}" 
-                       class="btn btn-primary btn-sm w-50">Add</a>
+                    <a href="{% url 'add_to_cart' pk=product.uid %}" class="btn btn-primary btn-sm w-50">Add</a>
                 </div>
 
             </div>
