@@ -14,19 +14,16 @@
 
                         <!-- MAIN IMAGE -->
                         <div class="rounded mb-3 text-center p-4 bg-light">
-                            <img id="mainImage"
-                                 src="{{ first_image }}"
-                                 class="img-fluid"
-                                 style="height: 420px; object-fit: contain;">
+                            <img id="mainImage" src="{{ first_image }}" class="img-fluid"
+                                style="height: 420px; object-fit: contain;">
                         </div>
 
                         <!-- THUMBNAILS -->
                         <div class="d-flex gap-2 flex-wrap justify-content-center">
                             {% for img in images %}
-                                <img src="{{ img.image.url }}"
-                                     onclick="document.getElementById('mainImage').src=this.src"
-                                     class="border rounded shadow-sm"
-                                     style="height: 90px; width: 90px; object-fit: cover; cursor:pointer;">
+                            <img src="{{ img.image.url }}" onclick="document.getElementById('mainImage').src=this.src"
+                                class="border rounded shadow-sm"
+                                style="height: 90px; width: 90px; object-fit: cover; cursor:pointer;">
                             {% endfor %}
                         </div>
 
@@ -39,11 +36,11 @@
 
                         <!-- BADGES -->
                         <div class="mb-2">
-                          {% if product.stock > 0 %}
+                            {% if product.stock > 0 %}
                             <span class="badge bg-success">In Stock</span>
-                          {% else %}
+                            {% else %}
                             <span class="badge bg-success">Out of Stock</span>
-                          {% endif %}
+                            {% endif %}
                             <span class="badge bg-primary">Bestseller</span>
                         </div>
 
@@ -76,7 +73,7 @@
                             </tr>
                         </table>
 
-                        
+
 
                         <!-- WHY SHOP WITH US -->
                         <div class="mt-3">

@@ -6,10 +6,12 @@
         transition: 0.2s;
         border-radius: 12px;
     }
+
     .cart-item-card:hover {
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
         transform: translateY(-3px);
     }
+
     .item-img {
         width: 100%;
         max-width: 120px;
@@ -29,10 +31,10 @@
 
     <!-- IF EMPTY -->
     {% if cart_items|length == 0 %}
-        <div class="text-center py-5">
-            <h5 class="text-muted mb-3">Your cart is empty</h5>
-            <a href="{% url 'home' %}" class="btn btn-primary">Shop Now</a>
-        </div>
+    <div class="text-center py-5">
+        <h5 class="text-muted mb-3">Your cart is empty</h5>
+        <a href="{% url 'home' %}" class="btn btn-primary">Shop Now</a>
+    </div>
     {% endif %}
 
     <div class="row">
@@ -47,8 +49,7 @@
 
                     <!-- IMAGE -->
                     <div class="col-4 col-md-3 text-center">
-                        <img src="{{ item.product.images.first.image.url }}"
-                             class="item-img">
+                        <img src="{{ item.product.images.first.image.url }}" class="item-img">
                     </div>
 
                     <!-- PRODUCT DETAILS -->
@@ -77,8 +78,7 @@
 
                         </div>
 
-                        <a href=""
-                           class="btn btn-danger btn-sm w-100">Remove</a>
+                        <a href="" class="btn btn-danger btn-sm w-100">Remove</a>
 
                     </div>
 
