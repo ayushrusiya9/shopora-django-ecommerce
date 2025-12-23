@@ -46,7 +46,7 @@ It provides a clean UI, secure checkout flow, reusable components, and a scalabl
 
 ## 📸 Screenshot
 
-home page:
+- ### home page:
 ![Home page](https://res.cloudinary.com/duhg4tvty/image/upload/v1766495896/Screenshot_2025-12-23_184350_wmqmwl.png)
 
 ## 👤 Developer
