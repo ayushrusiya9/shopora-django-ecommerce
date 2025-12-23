@@ -28,55 +28,6 @@ It provides a clean UI, secure checkout flow, reusable components, and a scalabl
 | Payment Gateway | Razorpay |
 | Version Control | Git & GitHub |
 
-```
-
-## ⚙️ Installation & Setup
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-username/shopora.git
-cd shopora
-```
-
-### 2. Create & Activate Virtual Environment
-```bash
-python -m venv venv
-venv/scripts/activate  # Windows
-source venv/bin/activate  # Linux/Mac
-```
-
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Run Database Migrations
-```bash
-python manage.py migrate
-```
-
-### 5. Start Development Server
-```bash
-python manage.py runserver
-```
-
-## 💳 Razorpay Integration Setup
-
-1. Go to Razorpay Dashboard → API Keys  
-2. Generate a Key ID and Key Secret  
-3. Add the keys in settings.py:
-
-```python
-RAZORPAY_KEY_ID = "your_key_id"
-RAZORPAY_KEY_SECRET = "your_key_secret"
-```
-
-4. Use Razorpay script on checkout page:
-
-```html
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-```
-
 ## 📦 Features Implemented Per Page
 
 ### 1️⃣ Home Page
@@ -93,20 +44,10 @@ RAZORPAY_KEY_SECRET = "your_key_secret"
 - Card-based layout  
 - Dynamic total amount  
 
-## 📸 Screenshots (Add Later)
+## 📸 Screenshot
 
-You can add your own images like:
-
-```
-/screenshots/
-    home.png
-    services.png
-    product.png
-    cart.png
-    checkout.png
-    admin.png
-```
-
+home page:
+![Home page](https://res.cloudinary.com/duhg4tvty/image/upload/v1766495896/Screenshot_2025-12-23_184350_wmqmwl.png)
 
 ## 👤 Developer
 
