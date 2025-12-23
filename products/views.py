@@ -54,6 +54,26 @@ def add_to_cart(request,pk):
     return redirect('cart_item')
     # return redirect(request.META.get('HTTP_REFERER', 'home'))
 
+def remove_item(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    cart = Cart.objects.filter(user=request.user).first()
+    if not cart:
+        return redirect('cart_item')
+
+    cart_item = CartItem.objects.filter(uid=pk,cart=cart).first()
+
+    if not cart_item:
+        return redirect('cart_item')
+
+    if cart_item.quantity > 1:
+        cart_item.quantity -= 1
+        cart_item.save()
+    else:
+        cart_item.delete() 
+
+    return redirect('cart_item')
 
 # razorpay create order
 def create_order(request):
